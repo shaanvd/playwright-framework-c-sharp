@@ -14,6 +14,11 @@ namespace SauceDemo.Playwright.CSharp.Tests;
 [Parallelizable(ParallelScope.Fixtures)]
 public abstract class BaseTest : PageTest
 {
+    static BaseTest()
+    {
+        ArtifactPaths.EnsureCreated();
+    }
+
     protected static readonly TestSettings Settings = TestSettings.Load();
     private bool _traceStarted;
 
@@ -51,6 +56,9 @@ public abstract class BaseTest : PageTest
     [SetUp]
     public async Task BeforeEach()
     {
+        // Set the test-id attribute using the instance Playwright property
+        Playwright.Selectors.SetTestIdAttribute("data-test");
+
         Page.SetDefaultTimeout(Settings.DefaultTimeoutMs);
         Page.SetDefaultNavigationTimeout(Settings.NavigationTimeoutMs);
 
@@ -123,5 +131,15 @@ public abstract class BaseTest : PageTest
         await AddAndOpenCartAsync(products);
         await CartPage.CheckoutAsync();
         await CheckoutInformationPage.ContinueAsync(Models.CheckoutCustomer.ValidUkCustomer);
+    }
+}
+
+[SetUpFixture]
+public class AssemblyInitializer
+{
+    [OneTimeSetUp]
+    public void RunBeforeAnyTests()
+    {
+        ArtifactPaths.EnsureCreated();
     }
 }

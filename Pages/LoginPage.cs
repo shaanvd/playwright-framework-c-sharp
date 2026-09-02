@@ -5,10 +5,10 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class LoginPage : BasePage
 {
-    private ILocator Username => Page.GetByTestId("username");
-    private ILocator Password => Page.GetByTestId("password");
-    private ILocator LoginButton => Page.GetByTestId("login-button");
-    private ILocator Error => Page.GetByTestId("error");
+    private ILocator Username => Page.Locator("#user-name");
+    private ILocator Password => Page.Locator("#password");
+    private ILocator LoginButton => Page.Locator("#login-button");
+    private ILocator Error => Page.Locator("[data-test='error']");
 
     public LoginPage(IPage page) : base(page) { }
 

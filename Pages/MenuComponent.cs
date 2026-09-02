@@ -5,7 +5,7 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class MenuComponent : BasePage
 {
-    private ILocator Menu => Page.GetByClass("bm-menu");
+    private ILocator Menu => Page.Locator(".bm-menu");
     private ILocator AllItems => Page.GetByTestId("inventory-sidebar-link");
     private ILocator Reset => Page.GetByTestId("reset-sidebar-link");
     private ILocator Logout => Page.GetByTestId("logout-sidebar-link");

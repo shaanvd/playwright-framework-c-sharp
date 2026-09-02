@@ -5,14 +5,14 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class CartPage : BasePage
 {
-    private ILocator CartList => Page.GetByTestId("cart-list");
-    private ILocator CartItems => Page.GetByTestId("inventory-item");
-    private ILocator CheckoutButton => Page.GetByTestId("checkout");
-    private ILocator ContinueShoppingButton => Page.GetByTestId("continue-shopping");
+    private ILocator CartList => Page.Locator(".cart_list");
+    private ILocator CartItems => Page.Locator(".cart_item");
+    private ILocator CheckoutButton => Page.Locator("#checkout");
+    private ILocator ContinueShoppingButton => Page.Locator("#continue-shopping");
 
     public CartPage(IPage page) : base(page) { }
 
-    public Task AssertLoadedAsync() => Expect(CartList).ToBeVisibleAsync();
+    public Task AssertLoadedAsync() => Expect(CheckoutButton).ToBeVisibleAsync();
 
     public Task<int> ItemCountAsync() => CartItems.CountAsync();
 
@@ -26,5 +26,6 @@ public sealed class CartPage : BasePage
     }
 
     public async Task CheckoutAsync() => await ClickAsync(CheckoutButton, "Checkout");
+
     public async Task ContinueShoppingAsync() => await ClickAsync(ContinueShoppingButton, "Continue shopping");
 }

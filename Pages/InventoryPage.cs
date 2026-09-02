@@ -7,17 +7,17 @@ public sealed class InventoryPage : BasePage
 {
     public const string Route = "inventory.html";
 
-    private ILocator InventoryContainer => Page.GetByTestId("inventory-container");
-    private ILocator Items => Page.GetByTestId("inventory-item");
-    private ILocator CartLink => Page.GetByTestId("shopping-cart-link");
-    private ILocator CartBadge => Page.GetByTestId("shopping-cart-badge");
-    private ILocator Sort => Page.GetByTestId("product-sort-container");
-    private ILocator MenuButton => Page.GetByRole(AriaRole.Button, new() { Name = "Open Menu" });
+    private ILocator InventoryContainer => Page.Locator("#inventory_container");
+    private ILocator Items => Page.Locator(".inventory_item");
+    private ILocator CartLink => Page.Locator(".shopping_cart_link");
+    private ILocator CartBadge => Page.Locator(".shopping_cart_badge");
+    private ILocator Sort => Page.Locator("[data-test='product-sort-container']");
+    private ILocator MenuButton => Page.Locator("#react-burger-menu-btn");
 
     public InventoryPage(IPage page) : base(page) { }
 
     public Task AssertLoadedAsync() =>
-        Expect(InventoryContainer).ToBeVisibleAsync();
+        Expect(InventoryContainer.First).ToBeVisibleAsync();
 
     public Task<int> ProductCountAsync() => Items.CountAsync();
 
@@ -45,7 +45,7 @@ public sealed class InventoryPage : BasePage
     public async Task OpenProductAsync(string productName)
     {
         var item = Items.Filter(new() { HasText = productName });
-        await ClickAsync(item.GetByRole(AriaRole.Link, new() { Name = productName }), $"Product {productName}");
+        await ClickAsync(item.Locator(".inventory_item_name"), $"Product {productName}");
     }
 
     public async Task SortAsync(string value)
@@ -54,11 +54,11 @@ public sealed class InventoryPage : BasePage
     }
 
     public async Task<IReadOnlyList<string>> ProductNamesAsync() =>
-        await Items.GetByTestId("inventory-item-name").AllInnerTextsAsync();
+        await Items.Locator(".inventory_item_name").AllInnerTextsAsync();
 
     public async Task<IReadOnlyList<decimal>> ProductPricesAsync()
     {
-        var texts = await Items.GetByTestId("inventory-item-price").AllInnerTextsAsync();
+        var texts = await Items.Locator(".inventory_item_price").AllInnerTextsAsync();
         return texts.Select(t => decimal.Parse(t.Replace("$", ""), System.Globalization.CultureInfo.InvariantCulture)).ToList();
     }
 

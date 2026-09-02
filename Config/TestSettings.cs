@@ -4,7 +4,7 @@ namespace SauceDemo.Playwright.CSharp.Config;
 
 public sealed record UserCredential(string Username, string Password);
 
-public sealed class TestSettings
+public sealed record TestSettings
 {
     public string BaseUrl { get; init; } = "https://www.saucedemo.com/";
     public string Browser { get; init; } = "chromium";
