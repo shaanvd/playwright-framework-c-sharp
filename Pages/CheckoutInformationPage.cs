@@ -6,12 +6,12 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class CheckoutInformationPage : BasePage
 {
-    private ILocator FirstName => Page.GetByTestId("firstName");
-    private ILocator LastName => Page.GetByTestId("lastName");
-    private ILocator PostalCode => Page.GetByTestId("postalCode");
-    private ILocator ContinueButton => Page.GetByTestId("continue");
-    private ILocator CancelButton => Page.GetByTestId("cancel");
-    private ILocator Error => Page.GetByTestId("error");
+    private ILocator FirstName => Page.Locator("#first-name");
+    private ILocator LastName => Page.Locator("#last-name");
+    private ILocator PostalCode => Page.Locator("#postal-code");
+    private ILocator ContinueButton => Page.Locator("#continue");
+    private ILocator CancelButton => Page.Locator("#cancel");
+    private ILocator Error => Page.Locator("[data-test='error']");
 
     public CheckoutInformationPage(IPage page) : base(page) { }
 

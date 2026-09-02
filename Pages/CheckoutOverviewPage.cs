@@ -5,12 +5,12 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class CheckoutOverviewPage : BasePage
 {
-    private ILocator Items => Page.GetByTestId("inventory-item");
-    private ILocator ItemTotal => Page.GetByTestId("subtotal-label");
-    private ILocator Tax => Page.GetByTestId("tax-label");
-    private ILocator Total => Page.GetByTestId("total-label");
-    private ILocator FinishButton => Page.GetByTestId("finish");
-    private ILocator CancelButton => Page.GetByTestId("cancel");
+    private ILocator Items => Page.Locator(".cart_item");
+    private ILocator ItemTotal => Page.Locator(".summary_subtotal_label");
+    private ILocator Tax => Page.Locator(".summary_tax_label");
+    private ILocator Total => Page.Locator(".summary_total_label");
+    private ILocator FinishButton => Page.Locator("#finish");
+    private ILocator CancelButton => Page.Locator("#cancel");
 
     public CheckoutOverviewPage(IPage page) : base(page) { }
 

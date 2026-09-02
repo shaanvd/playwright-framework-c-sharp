@@ -5,11 +5,11 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class ProductDetailsPage : BasePage
 {
-    private ILocator Name => Page.GetByTestId("inventory-item-name");
-    private ILocator Price => Page.GetByTestId("inventory-item-price");
+    private ILocator Name => Page.Locator(".inventory_details_name");
+    private ILocator Price => Page.Locator(".inventory_details_price");
     private ILocator AddButton => Page.GetByRole(AriaRole.Button, new() { Name = "Add to cart" });
     private ILocator RemoveButton => Page.GetByRole(AriaRole.Button, new() { Name = "Remove" });
-    private ILocator BackButton => Page.GetByTestId("back-to-products");
+    private ILocator BackButton => Page.Locator("#back-to-products");
 
     public ProductDetailsPage(IPage page) : base(page) { }
 
@@ -18,7 +18,12 @@ public sealed class ProductDetailsPage : BasePage
 
     public Task<string> PriceTextAsync() => Price.InnerTextAsync();
 
-    public async Task AddToCartAsync() => await ClickAsync(AddButton, "Add product from details");
-    public async Task RemoveFromCartAsync() => await ClickAsync(RemoveButton, "Remove product from details");
-    public async Task BackToProductsAsync() => await ClickAsync(BackButton, "Back to products");
+    public async Task AddToCartAsync() =>
+        await ClickAsync(AddButton, "Add product from details");
+
+    public async Task RemoveFromCartAsync() =>
+        await ClickAsync(RemoveButton, "Remove product from details");
+
+    public async Task BackToProductsAsync() =>
+        await ClickAsync(BackButton, "Back to products");
 }

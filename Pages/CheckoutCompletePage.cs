@@ -5,8 +5,8 @@ namespace SauceDemo.Playwright.CSharp.Pages;
 
 public sealed class CheckoutCompletePage : BasePage
 {
-    private ILocator CompleteHeader => Page.GetByTestId("complete-header");
-    private ILocator BackHome => Page.GetByTestId("back-to-products");
+    private ILocator CompleteHeader => Page.Locator(".complete-header");
+    private ILocator BackHome => Page.Locator("#back-to-products");
 
     public CheckoutCompletePage(IPage page) : base(page) { }
 
