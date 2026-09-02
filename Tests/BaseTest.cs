@@ -101,7 +101,26 @@ public abstract class BaseTest : PageTest
                 if (failed && File.Exists(trace))
                     TestContext.AddTestAttachment(trace, "Playwright trace");
             }
+        
+        var video = Page.Video;
+        if (video != null)
+        {
+            // The page must be closed to flush remaining frames and finalize the video file
+            await Page.CloseAsync();
+
+            if (failed && Settings.RecordVideo)
+            {
+                var failureVideoPath = Path.Combine(ArtifactPaths.Videos, $"{testName}-{stamp}.webm");
+                await video.SaveAsAsync(failureVideoPath);
+                TestContext.AddTestAttachment(failureVideoPath, "Failure video");
+                AllureApi.AddAttachment("Failure video", "video/webm", File.ReadAllBytes(failureVideoPath));
+            }
+            else
+            {
+                await video.DeleteAsync();
+            }
         }
+    }
         catch (Exception ex)
         {
             Log.Warning(ex, "Unable to collect failure artifacts.");
