@@ -34,7 +34,7 @@ public sealed class NewTests : BaseTest
     public async Task UserCanLogin()
     {
         await LoginAsAsync();
-        await Menu.AllItemsAsync();
+        await InventoryPage.OpenMenuAsync();
     }
 
     [Test, Category("TC-NEW-104")]
