@@ -8,7 +8,7 @@ public sealed record TestSettings
 {
     public string BaseUrl { get; init; } = "https://www.saucedemo.com/";
     public string Browser { get; init; } = "chromium";
-    public bool Headless { get; init; } = true;
+    public bool Headless { get; init; } = false;
     public int SlowMoMs { get; init; }
     public float DefaultTimeoutMs { get; init; } = 10_000;
     public float NavigationTimeoutMs { get; init; } = 20_000;
