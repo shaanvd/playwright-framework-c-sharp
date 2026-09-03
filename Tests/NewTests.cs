@@ -50,7 +50,7 @@ public sealed class NewTests : BaseTest
     public async Task InvaidPassword()
     {
         await LoginPage.OpenAsync(Settings.BaseUrl);
-        await LoginPage.LoginAsync("standard_user", "wrong_password");
+        await LoginPage.LoginAsync("standard_user", "wrong_password"); //put in config file
         await LoginPage.AssertErrorContainsAsync("Username and password do not match");
     }
 
