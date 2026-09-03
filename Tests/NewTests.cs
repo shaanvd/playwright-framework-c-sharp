@@ -45,4 +45,20 @@ public sealed class NewTests : BaseTest
         await Menu.LogoutAsync();
         await LoginPage.AssertLoadedAsync();
     }
+
+    [Test, Category("TC-NEW-105")]
+    public async Task InvaidPassword()
+    {
+        await LoginPage.OpenAsync(Settings.BaseUrl);
+        await LoginPage.LoginAsync("standard_user", "wrong_password");
+        await LoginPage.AssertErrorContainsAsync("Username and password do not match");
+    }
+
+    [Test, Category("TC-NEW-106")]
+    public async Task ForcedFail()
+    {
+        await LoginPage.OpenAsync(Settings.BaseUrl);
+        await LoginAsAsync();
+        await LoginPage.AssertErrorContainsAsync("Username and password do not match");
+    }
 }
